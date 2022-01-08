@@ -86,7 +86,7 @@ jobs:
       - name: Install inner dependencies
         working-directory: pypackage-generated
         run: |
-          pip install -r requirements.txt
+          pip install -r requirements_dev.txt
       - name: Lint inner repo
         working-directory: pypackage-generated
         run: |
