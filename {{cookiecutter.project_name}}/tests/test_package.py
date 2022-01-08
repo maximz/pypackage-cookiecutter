@@ -20,7 +20,9 @@ def test_version_number_not_yet_on_pypi():
         # if the release does not exist yet, this version-specific lookup should 404
         assert (
             requests.get(
-                "https://pypi.org/pypi/{{ cookiecutter.package_name }}/{}/json".format({{ cookiecutter.package_name }}.__version__)
+                "https://pypi.org/pypi/{{ cookiecutter.package_name }}/{}/json".format(
+                    {{ cookiecutter.package_name }}.__version__
+                )
             ).status_code
             == 404
         ), "This version number already exists on pypi."

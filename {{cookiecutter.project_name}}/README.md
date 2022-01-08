@@ -5,6 +5,10 @@
 [![](https://img.shields.io/badge/docs-here-blue.svg)]({{ cookiecutter.docs_url }})
 [![](https://img.shields.io/github/stars/{{cookiecutter.github_username}}/{{ cookiecutter.github_repo_name }}?style=social)](https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.github_repo_name}})
 
+## TODOs: Configuring this template
+
+Add these CI secrets: TODO
+
 ## Overview
 
 ## Installation
