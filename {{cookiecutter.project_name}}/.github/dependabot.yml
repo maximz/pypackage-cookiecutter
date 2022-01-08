@@ -1,0 +1,28 @@
+# Dependabot version updates
+# Docs: https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
+# This is the outer cookiecutter dependabot - should not interfere with inner dependabot.
+
+version: 2
+updates:
+  # Maintain dependencies for python
+  # Outer requirements.txt stored in .github because dependabot works recursively, and don't want it to interfere with inner dependabot.
+  # TODO: or should we allow dependabot here to work inwards too?
+  - package-ecosystem: "pip"
+    directory: "/.github"
+    schedule:
+      interval: "daily"
+    labels:
+      - "cookiecutter"
+      - "dependencies"
+      - "python"
+
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/.github"
+    schedule:
+      interval: "daily"
+    labels:
+      - "cookiecutter"
+      - "dependencies"
+      - "github_actions"

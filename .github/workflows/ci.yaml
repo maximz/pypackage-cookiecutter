@@ -1,0 +1,98 @@
+# Checkout or python install don't carry between jobs. In fresh job, will default to empty directory and python 3.8
+# Env variables are all strings
+
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      # don't abort all other jobs
+      fail-fast: false
+      matrix:
+        python-version: [3.7, 3.8, 3.9]
+    steps:
+      - name: Checkout
+        # Outer repo will now live in datascience-cookiecutter-starter directory
+        uses: actions/checkout@v2
+        with:
+          path: datascience-cookiecutter-starter
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Get Python version
+        run: python --version
+
+      - name: Cache pip
+        uses: actions/cache@v2
+        with:
+          # This path is specific to Ubuntu
+          path: ~/.cache/pip
+          # Look to see if there is a cache hit for the corresponding requirements file
+          key: ${{ runner.os }}-pip-${{ hashFiles('.github/workflows/requirements.txt') }}-${{ hashFiles('{{cookiecutter.project_name}}/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+            ${{ runner.os }}-
+
+      - name: Install dependencies for outer repo
+        working-directory: datascience-cookiecutter-starter
+        run: |
+          python -m pip install --upgrade pip wheel
+          pip install -r .github/workflows/requirements.txt
+
+      - name: Compute cache key for pre-commit
+        id: cache_key
+        shell: python
+        run: |
+          import hashlib
+          import sys
+
+          python = "py{}.{}".format(*sys.version_info[:2])
+          payload = sys.version.encode() + sys.executable.encode()
+          digest = hashlib.sha256(payload).hexdigest()
+          result = "${{ runner.os }}-{}-{}-pre-commit".format(python, digest)
+
+          print("::set-output name=result::{}".format(result))
+      - name: Cache precommit
+        uses: actions/cache@v2.1.6
+        with:
+          path: ~/.cache/pre-commit
+          # Look to see if there is a cache hit for the corresponding file
+          key: ${{ steps.cache_key.outputs.result }}-${{ hashFiles('{{cookiecutter.project_name}}/.pre-commit-config.yaml') }}
+          restore-keys: |
+            ${{ steps.cache_key.outputs.result }}-
+
+      - name: Lint outer repo
+        working-directory: datascience-cookiecutter-starter
+        run: |
+            pre-commit install
+            pre-commit run --all-files --show-diff-on-failure
+
+      - name: Generate inner project using Cookiecutter
+        # Inner repo will now live in datascience-starter directory
+        run: cookiecutter --no-input datascience-cookiecutter-starter
+      - name: Create git repository
+        run: |
+          git init
+          git config --local user.name "GitHub Action"
+          git config --local user.email "action@github.com"
+          git add .
+          git commit --message="Initial import"
+        working-directory: datascience-starter
+
+      - name: Install inner dependencies
+        working-directory: datascience-starter
+        run: |
+          pip install -r requirements.txt
+      - name: Lint inner repo
+        working-directory: datascience-starter
+        run: |
+            pre-commit install
+            pre-commit run --all-files --show-diff-on-failure
+      - name: Run inner tests
+        # use temporary directory cleaned up after every job
+        run: pytest --basetemp={runner.temp}
+        working-directory: datascience-starter

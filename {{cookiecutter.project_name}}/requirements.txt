@@ -1,0 +1,14 @@
+coverage
+genetools
+joblib
+jupytext==1.11.5
+matplotlib
+numpy
+pandas
+pre-commit
+pytest
+pytest-cov
+scikit-learn
+scipy
+seaborn
+summarynb
