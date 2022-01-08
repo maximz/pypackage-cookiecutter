@@ -1,8 +1,11 @@
 {
-  "project_name": "datascience-starter",
+  "project_name": "pypackage-generated",
   "package_name": "{{ cookiecutter.project_name.replace('-', '_') }}",
   "friendly_name": "{{ cookiecutter.project_name.replace('-', ' ').title() }}",
   "author": "Maxim Zaslavsky",
   "email": "maxim@maximz.com",
-  "version": "0.0.1"
+  "version": "0.0.1",
+  "github_username": "maximz",
+  "github_repo_name": "{{cookiecutter.project_name}}",
+  "docs_url": "https://{{ cookiecutter.package_name }}.maximz.com"
 }

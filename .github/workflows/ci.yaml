@@ -15,10 +15,10 @@ jobs:
         python-version: [3.7, 3.8, 3.9]
     steps:
       - name: Checkout
-        # Outer repo will now live in datascience-cookiecutter-starter directory
+        # Outer repo will now live in pypackage-cookiecutter directory
         uses: actions/checkout@v2
         with:
-          path: datascience-cookiecutter-starter
+          path: pypackage-cookiecutter
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
@@ -38,7 +38,7 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install dependencies for outer repo
-        working-directory: datascience-cookiecutter-starter
+        working-directory: pypackage-cookiecutter
         run: |
           python -m pip install --upgrade pip wheel
           pip install -r .github/workflows/requirements.txt
@@ -66,14 +66,14 @@ jobs:
             ${{ steps.cache_key.outputs.result }}-
 
       - name: Lint outer repo
-        working-directory: datascience-cookiecutter-starter
+        working-directory: pypackage-cookiecutter
         run: |
             pre-commit install
             pre-commit run --all-files --show-diff-on-failure
 
       - name: Generate inner project using Cookiecutter
-        # Inner repo will now live in datascience-starter directory
-        run: cookiecutter --no-input datascience-cookiecutter-starter
+        # Inner repo will now live in pypackage-generated directory
+        run: cookiecutter --no-input pypackage-generated
       - name: Create git repository
         run: |
           git init
@@ -81,18 +81,18 @@ jobs:
           git config --local user.email "action@github.com"
           git add .
           git commit --message="Initial import"
-        working-directory: datascience-starter
+        working-directory: pypackage-generated
 
       - name: Install inner dependencies
-        working-directory: datascience-starter
+        working-directory: pypackage-generated
         run: |
           pip install -r requirements.txt
       - name: Lint inner repo
-        working-directory: datascience-starter
+        working-directory: pypackage-generated
         run: |
             pre-commit install
             pre-commit run --all-files --show-diff-on-failure
       - name: Run inner tests
         # use temporary directory cleaned up after every job
         run: pytest --basetemp={runner.temp}
-        working-directory: datascience-starter
+        working-directory: pypackage-generated
