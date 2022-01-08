@@ -73,7 +73,7 @@ jobs:
 
       - name: Generate inner project using Cookiecutter
         # Inner repo will now live in pypackage-generated directory
-        run: cookiecutter --no-input pypackage-generated
+        run: cookiecutter --no-input pypackage-cookiecutter
       - name: Create git repository
         run: |
           git init
