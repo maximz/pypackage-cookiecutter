@@ -46,6 +46,7 @@ jobs:
       - name: Compute cache key for pre-commit
         id: cache_key
         shell: python
+        # TODO: is this excessive?
         run: |
           import hashlib
           import sys

@@ -148,7 +148,7 @@ man_pages = [
         "{{ cookiecutter.package_name }}",
         "{{ cookiecutter.project_name }} Documentation",
         [author],
-        1
+        1,
     )
 ]
 
