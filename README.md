@@ -1,12 +1,8 @@
-# Data Science Starter Template (Cookiecutter)
+# Python package template (Cookiecutter)
 
-This template for data science projects gives you:
+This template for Python packages gives you:
 
-* A directory for Python scripts, for refactoring logic out of your Jupyter notebooks. These are bundled together in a `pip install`-able package that you can import in your notebooks.
-* A directory for Jupyter notebooks, with automatic mirroring/sync to Python scripts, so you can easily edit and diff your notebooks.
-* Linting for your Python scripts and Jupyter notebooks.
-* Automated tests and Github Actions CI.
-* Helper scripts to run notebooks en-masse in a pipeline.
+* TODO
 
 ## Usage
 
@@ -14,7 +10,7 @@ To run this cookiecutter template:
 
 ```bash
 pip install cookiecutter
-cookiecutter gh:maximz/datascience-cookiecutter-starter
+cookiecutter gh:maximz/pypackage-cookiecutter
 ```
 
 ## Development of the cookiecutter project
