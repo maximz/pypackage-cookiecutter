@@ -7,7 +7,9 @@
 
 ## TODOs: Configuring this template
 
-Add these CI secrets: TODO
+Create a Netlify site for your repository, then turn off automatic builds in Netlify settings.
+
+Add these CI secrets: `PYPI_API_TOKEN`, `NETLIFY_AUTH_TOKEN` (Netlify user settings - personal access tokens), `DEV_NETLIFY_SITE_ID`, `PROD_NETLIFY_SITE_ID` (API ID from Netlify site settings)
 
 ## Overview
 

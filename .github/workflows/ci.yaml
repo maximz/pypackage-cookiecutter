@@ -97,3 +97,15 @@ jobs:
         # use temporary directory cleaned up after every job
         run: pytest --basetemp={runner.temp}
         working-directory: pypackage-generated
+      - name: make inner docs
+        run: make docs
+        working-directory: pypackage-generated
+      - name: deploy inner docs to netlify dev
+        if: ${{ env.MASTER_PUSH != 'true' }}
+        uses: netlify/actions/cli@master
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.DEV_NETLIFY_SITE_ID }}
+        with:
+          args: deploy --dir="pypackage-generated/docs/_build/html"
+        timeout-minutes: 5
