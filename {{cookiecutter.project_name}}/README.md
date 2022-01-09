@@ -23,6 +23,8 @@ pip install {{ cookiecutter.package_name }}
 
 ## Development
 
+Submit PRs against `develop` branch, then make a release pull request to `master`.
+
 ```bash
 # Install requirements
 pip install --upgrade pip wheel
