@@ -3,6 +3,7 @@
   "package_name": "{{ cookiecutter.project_name.replace('-', '_') }}",
   "friendly_name": "{{ cookiecutter.project_name.replace('-', ' ').title() }}",
   "author": "Maxim Zaslavsky",
+  "author_url": "https://www.maximzaslavsky.com",
   "email": "maxim@maximz.com",
   "version": "0.0.1",
   "github_username": "maximz",

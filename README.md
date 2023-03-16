@@ -20,6 +20,8 @@ pre-commit install
 make lint
 ```
 
+Note that symlinks in the generated project's `docs/` folder are created by a post-generate hook in `hooks/`.
+
 For long blocks with templated braces that shouldn't involve Cookiecutter -- e.g. the inner CI yaml -- wrap with `{% raw -%}` and `{%- endraw %}`.
 
 ## Thanks
