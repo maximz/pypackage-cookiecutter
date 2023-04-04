@@ -1,0 +1,4 @@
+[run]
+branch = True
+source =
+    {{ cookiecutter.package_name }}

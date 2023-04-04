@@ -13,6 +13,19 @@ pip install cookiecutter
 cookiecutter gh:maximz/pypackage-cookiecutter
 ```
 
+Navigate to the destination and initialize the repo:
+
+```bash
+cd generated-projected # swap in the right path
+git init
+git add .
+git commit -m "Initial commit"
+gh repo create "projectname" --private --source=. --remote=origin # swap in projectname
+git push -u origin master
+```
+
+Follow instructions in the generated repo for development setup.
+
 ## Development of the cookiecutter project
 
 ```bash

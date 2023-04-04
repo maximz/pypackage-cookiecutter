@@ -28,6 +28,11 @@ pip install {{ cookiecutter.package_name }}
 Submit PRs against `develop` branch, then make a release pull request to `master`.
 
 ```bash
+# Optional: set up a pyenv virtualenv
+pyenv virtualenv 3.9 {{ cookiecutter.package_name }}-3.9
+echo "{{ cookiecutter.package_name }}-3.9" > .python-version
+pyenv version
+
 # Install requirements
 pip install --upgrade pip wheel
 pip install -r requirements_dev.txt
