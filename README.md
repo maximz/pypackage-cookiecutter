@@ -55,6 +55,24 @@ Other setup:
     - `NETLIFY_PROD_AUTH_TOKEN` (Netlify user settings for prod account --> personal access tokens)
     - `PROD_NETLIFY_SITE_ID` (API ID from Netlify prod site settings)
 
+Creating Netlify sites through CLI:
+
+```bash
+# https://cli.netlify.com/getting-started
+npm install netlify-cli -g
+netlify login # or `netlify switch` to switch accounts
+
+# https://cli.netlify.com/commands/sites#sitescreate
+mkdir blank
+cd blank
+
+netlify sites:create --disable-linking --debug
+# then click enter twice
+
+# or look up account slug in Team Settings and specify a name:
+netlify sites:create --disable-linking --debug --account-slug "maximz" --name "projectname"
+```
+
 ## Development of the cookiecutter project
 
 ```bash
