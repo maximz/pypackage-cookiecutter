@@ -8,5 +8,6 @@
   "version": "0.0.1",
   "github_username": "maximz",
   "github_repo_name": "{{cookiecutter.project_name}}",
-  "docs_url": "https://{{ cookiecutter.package_name }}.maximz.com"
+  "publish_docs": "y",
+  "docs_url": "https://{{ cookiecutter.project_name }}.maximz.com"
 }

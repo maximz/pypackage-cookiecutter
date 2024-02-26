@@ -13,6 +13,8 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [3.8, 3.9]
+        # Test whether docs are enabled. This changes the YAML so we want to run the check-yaml pre-commit hook on both versions
+        publish_docs: ['y', 'n']
     steps:
       - name: Checkout
         # Outer repo will now live in pypackage-cookiecutter directory
@@ -74,7 +76,7 @@ jobs:
 
       - name: Generate inner project using Cookiecutter
         # Inner repo will now live in pypackage-generated directory
-        run: cookiecutter --no-input pypackage-cookiecutter
+        run: cookiecutter --no-input pypackage-cookiecutter/ "publish_docs=${{ matrix.publish_docs }}"
       - name: Create git repository
         run: |
           git init
